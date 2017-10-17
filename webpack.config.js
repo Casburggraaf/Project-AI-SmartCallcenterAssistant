@@ -89,17 +89,17 @@ module.exports = {
 				$: 'jquery',
 				jQuery: 'jquery'
 			}),
-				new HtmlWebpackPlugin({
-						title: '',
-						hash: true,
-						chunks: ['', ''],
-						filename: 'bestellen.html',
-						template: './src/bestellen.html'
-				}),
+				// new HtmlWebpackPlugin({
+				// 		title: '',
+				// 		hash: true,
+				// 		chunks: ['', ''],
+				// 		filename: 'second.html',
+				// 		template: './src/second.html'
+				// }),
         new HtmlWebpackPlugin({
             title: 'INDEX',
             hash: true,
-						excludeChunks: ['', ""],
+						excludeChunks: [],
 						template: './src/index.html',
 						favicon: 'src/images/favicon.ico',
 						environment: {prod: process.env.NODE_ENV === 'production'}
