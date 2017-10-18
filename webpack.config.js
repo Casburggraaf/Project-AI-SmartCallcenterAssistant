@@ -42,6 +42,7 @@ const bootstrapConfig = isProd ? bootstrapEntryPoints.prod : bootstrapEntryPoint
 module.exports = {
     entry: {
 					index: './src/index.js',
+					// externjs: './src/extern.js',
 					//second : './src/second.js',
 					bootstrap: bootstrapConfig,
     },
@@ -61,6 +62,10 @@ module.exports = {
                 exclude: /node_modules/,
                 use: 'babel-loader'
             },
+						{
+   						test: /\.exec\.js$/,
+   						use: [ { loader: 'script-loader' } ]
+						},
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 use: [
@@ -118,7 +123,7 @@ module.exports = {
 						purifyOptions: {
 							whitelist: ['.messageButton']
 						},
-						minimize: isProd
+						minimize: false
         })
     ]
 }
