@@ -10,3 +10,13 @@ if (window.location.protocol == "file:") {
 } else if (window.location.hostname !== "localhost" && window.location.protocol !== "https:"){
   window.location.protocol = "https";
 }
+
+
+document.addEventListener('DOMContentLoaded',function(){
+  if(document.querySelector(".webcam")){
+    document.querySelector(".webcam").addEventListener("click", function(){
+      document.querySelector("#content").classList.toggle("toggle")
+    });
+  }
+
+}, false);

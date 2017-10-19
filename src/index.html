@@ -16,9 +16,19 @@
 <div id="controls">
   <input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
 </div>
-
-<input type="email">
-<div id="content">
+<form>
+<fieldset>
+  <legend>Klacht afhandeling</legend>
+  <label id="klacht">Klacht:</label><input type="text" id="klacht" value=""><br>
+  <label id="naam">Naam:</label><input type="text" id="naam" value=""><br>
+  <label id="ticketnummer">Ticket nummber:</label><input type="number" id="ticketnummer" value=""><br>
+  <label id="date">Datum:</label><input type="date" id="date" value=""><br>
+  <label id="garage">Garage locatie:</label><input type="text" id="garage" value=""><br>
+  <input type="submit" id="submit"value="Verstuur">
+</fieldset>
+</form>
+<div id="content" class="toggle">
+  <img alt="webcam" class="webcam" id="webcam" src=<%=require( "./images/webcam.svg") %>>
   <h2>Live webcam</h2>
   <div id="container">
     <video id="videoel" width="400" height="300" preload="auto" loop playsinline autoplay>
@@ -110,6 +120,7 @@
     function startVideo() {
       // start video
       vid.play();
+      colorBorder();
       // start tracking
       ctrack.start(vid);
       trackingStarted = true;
@@ -230,8 +241,45 @@
     // update stats on every iteration
     document.addEventListener('clmtrackrIteration', function(event) {
       stats.update();
+
     }, false);
 
+
+    function colorBorder() {
+      setInterval(function(){
+        var results = [];
+        var appel = document.querySelectorAll("#emotion_chart .labels");
+        for(let i = 0; i < appel.length; i++){
+          results[i] = appel[i].innerHTML;
+        }
+        var maxIndex = results.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+        console.log(results);
+        console.log(maxIndex);
+        if(maxIndex == 0){
+          document.querySelector("fieldset").setAttribute("style", "border: 2px solid red ");
+          document.activeElement.setAttribute("style", "outline: red 5px auto");
+        } else if(maxIndex == 1){
+            document.querySelector("fieldset").setAttribute("style", "border: 2px solid yellow ");
+            document.activeElement.setAttribute("style", "outline: yellow 5px auto");
+        } else if(maxIndex == 2){
+            document.querySelector("fieldset").setAttribute("style", "border: 2px solid  blue");
+            document.activeElement.setAttribute("style", "outline: blue 5px auto");
+        } else if(maxIndex == 3){
+            document.querySelector("fieldset").setAttribute("style", "border: 2px solid  green");
+            document.activeElement.setAttribute("style", "outline: green 5px auto");
+        }
+
+        var input = document.querySelectorAll("input");
+        for(let i = 0; i < input.length; i++){
+          if(input[i] != document.activeElement){
+            input[i].setAttribute("style", "");
+          }
+        }
+
+        document
+      //  document.activeElement.setAttribute("outline", "border: 2px solid  blue")
+      }, 1000);
+    }
   </script>
 </div>
 
